@@ -1,4 +1,4 @@
 package com.app.namasteapi.controller;
 
-public class LookupController {
+public class MappingController {
 }

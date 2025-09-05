@@ -8,14 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @RequestMapping("/api/icd11")
 public class icd11Controller {
     @Autowired
     private Icd11Service service;
 
+    public icd11Controller(Icd11Service service) {
+        this.service = service;
+    }
+
     @GetMapping("/search")
-    public Icd11Terms search(@RequestParam String x) {
+    public Icd11Terms search(@RequestParam String x) throws UnsupportedEncodingException {
         return service.searchTerm(x);
     }
 }

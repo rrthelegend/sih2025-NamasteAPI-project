@@ -8,11 +8,12 @@ import torch
 # Load Data Once (Global)
 # -------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-namaste_path = os.path.join(BASE_DIR, "NAMASTE_sampled_100_each.xlsx")
+namaste_path = os.path.join(BASE_DIR, "NAMASTE_AYUSH _CODES.xlsx")
 icd_path = os.path.join(BASE_DIR, "SimpleTabulation-ICD-11-MMS-en.csv")
 
 namaste_df = pd.read_excel(namaste_path).fillna("")
 icd_df = pd.read_csv(icd_path).fillna("")
+icd_df["Title"] = icd_df["Title"].str.strip() 
 
 # -------------------------------
 # Preprocess & Clean
@@ -87,11 +88,11 @@ def map_namaste(namc_code: str = None, namc_term: str = None):
             return {"error": f"NAMC_TERM '{term}' not found"}
         row = row.iloc[0]
 
-    # Step 2: Choose mapping text
+    # Step 2: Choose mapping text based on TYPE
     if "TYPE" in row and str(row["TYPE"]).strip().lower() == "ayurveda":
-        mapping_text = str(row.get("Long_definition", row.get("Short_definition")))
+        mapping_text = str(row.get("Long_definition", row.get("Short_definition", "")))
     else:
-        mapping_text = str(row.get("Short_definition"))
+        mapping_text = str(row.get("Short_definition", ""))
 
     if not mapping_text:
         return {

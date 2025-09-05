@@ -1,17 +1,17 @@
 package com.app.namasteapi.controller;
 
-import com.app.namasteapi.service.TerminologyService;
+import com.app.namasteapi.service.terminologyService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
+public class adminController {
 
-    private final TerminologyService terminologyService;
+    private final terminologyService terminologyService;
 
-    public AdminController(TerminologyService terminologyService) {
+    public adminController(terminologyService terminologyService) {
         this.terminologyService = terminologyService;
     }
 

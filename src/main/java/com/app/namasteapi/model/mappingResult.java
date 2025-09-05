@@ -1,6 +1,6 @@
 package com.app.namasteapi.model;
 
-public class MappingResult {
+public class mappingResult {
 
     private String namasteCode;
     private String namasteName;
@@ -8,23 +8,24 @@ public class MappingResult {
     private String shortDefinition;
     private String longDefinition;
     private String type;
-
     private String icd11Id;
     private String icd11Title;
     private String icd11Definition;
 
-    public MappingResult() {}
+    public mappingResult() {}
 
-    public MappingResult(NamasteTerms namaste, String icd11Id, String icd11Title, String icd11Definition) {
+    public mappingResult(namasteTerms namaste, icd11Terms icd11) {
         this.namasteCode = namaste.getNamcCode();
-        this.namasteName = namaste.getNamcName();
+        this.namasteName = namaste.getNamcTerm();
         this.ethnicTerm = namaste.getEthnicTerm();
         this.shortDefinition = namaste.getShortDefinition();
         this.longDefinition = namaste.getLongDefinition();
         this.type = namaste.getType();
-        this.icd11Id = icd11Id;
-        this.icd11Title = icd11Title;
-        this.icd11Definition = icd11Definition;
+        this.icd11Id = icd11.getIcdCode();
+        this.icd11Title = icd11.getIcdTitle();
+    }
+
+    public mappingResult(namasteTerms record, String icdCode, String icdTitle) {
     }
 
     public String getNamasteCode() { return namasteCode; }

@@ -6,7 +6,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/fhir")
-public class FhirController {
+public class fhirController {
 
     @PostMapping("/Bundle")
     public Map<String, Object> uploadBundle(@RequestBody Map<String, Object> bundle) {

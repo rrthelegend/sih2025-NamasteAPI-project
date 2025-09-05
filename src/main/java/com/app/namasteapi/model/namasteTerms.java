@@ -6,29 +6,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "NamasteDB")
-public class NamasteTerms {
+@Table(name = "namastedb")
+public class namasteTerms {
 
     @Id
-    @Column(name = "NAMC_CODE")
+    @Column(name = "\"namc_code\"")
     private String namcCode;
 
-    @Column(name = "NAMC_NAME")
-    private String namcName;
+    @Column(name = "\"namc_term\"")
+    private String namcTerm;
 
-    @Column(name = "Ethnic_term")
+    @Column(name = "\"ethnic_term\"")
     private String ethnicTerm;
 
-    @Column(name = "Short_definition")
+    @Column(name = "\"short_definition\"")
     private String shortDefinition;
 
-    @Column(name = "Long_definition")
+    @Column(name = "\"long_definition\"")
     private String longDefinition;
 
-    @Column(name = "TYPE")
+    @Column(name = "\"type\"")
     private String type;
 
-    // Getters & Setters
     public String getNamcCode() {
         return namcCode;
     }
@@ -37,12 +36,12 @@ public class NamasteTerms {
         this.namcCode = namcCode;
     }
 
-    public String getNamcName() {
-        return namcName;
+    public String getNamcTerm() {
+        return namcTerm;
     }
 
-    public void setNamcName(String namcName) {
-        this.namcName = namcName;
+    public void setNamcTerm(String namcTerm) {
+        this.namcTerm = namcTerm;
     }
 
     public String getEthnicTerm() {

@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 
 @Service
-public class AuthService {
+public class authService {
     @Value("${icd11.client.id}")
     private String clientId;
 

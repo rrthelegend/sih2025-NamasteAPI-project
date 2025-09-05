@@ -14,19 +14,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Swagger endpoints public
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**"
                         ).permitAll()
-                        // Everything else requires login
                         .anyRequest().authenticated()
                 )
-                // default login form
                 .formLogin(Customizer.withDefaults())
-                // also allow HTTP Basic (good for Postman testing)
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();

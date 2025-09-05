@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface NamasteRepository extends JpaRepository<NamasteTerms, String> {
-    Optional<NamasteTerms> findByNAMC_CODEIgnoreCase(String term);
-    List<NamasteTerms> findByNAMC_NAMEContainingIgnoreCase(String name);
-
+    Optional<NamasteTerms> findByNamcCodeIgnoreCase(String term);
+    List<NamasteTerms> findByNamcNameContainingIgnoreCase(String name);
 }

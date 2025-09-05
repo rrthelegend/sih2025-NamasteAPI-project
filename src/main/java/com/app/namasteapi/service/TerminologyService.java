@@ -30,8 +30,8 @@ public class TerminologyService {
         List<Map<String, String>> concepts = new ArrayList<>();
         for (NamasteTerms t : terms) {
             Map<String, String> concept = new HashMap<>();
-            concept.put("code", t.getNAMC_CODE());
-            concept.put("display", t.getNAMC_NAME());
+            concept.put("code", t.getNamcCode());
+            concept.put("display", t.getNamcName());
             concepts.add(concept);
         }
         codeSystem.put("concept", concepts);

@@ -11,68 +11,69 @@ public class NamasteTerms {
 
     @Id
     @Column(name = "NAMC_CODE")
-    private String NAMC_CODE;
+    private String namcCode;
 
     @Column(name = "NAMC_NAME")
-    private String NAMC_NAME;
+    private String namcName;
 
     @Column(name = "Ethnic_term")
-    private String Ethnic_term;
+    private String ethnicTerm;
 
-    @Column(name = "Short_definitions")
-    private String Short_definitions;
+    @Column(name = "Short_definition")
+    private String shortDefinition;
 
-    @Column(name = "Long_definitions")
-    private String Long_definitions;
+    @Column(name = "Long_definition")
+    private String longDefinition;
 
     @Column(name = "TYPE")
-    private String TYPE;
+    private String type;
 
-    public String getNAMC_CODE() {
-        return NAMC_CODE;
+    // Getters & Setters
+    public String getNamcCode() {
+        return namcCode;
     }
 
-    public void setNAMC_CODE(String NAMC_CODE) {
-        this.NAMC_CODE = NAMC_CODE;
+    public void setNamcCode(String namcCode) {
+        this.namcCode = namcCode;
     }
 
-    public String getNAMC_NAME() {
-        return NAMC_NAME;
+    public String getNamcName() {
+        return namcName;
     }
 
-    public void setNAMC_NAME(String NAMC_NAME) {
-        this.NAMC_NAME = NAMC_NAME;
+    public void setNamcName(String namcName) {
+        this.namcName = namcName;
     }
 
-    public String getEthnic_term() {
-        return Ethnic_term;
+    public String getEthnicTerm() {
+        return ethnicTerm;
     }
 
-    public void setEthnic_term(String ethnic_term) {
-        Ethnic_term = ethnic_term;
+    public void setEthnicTerm(String ethnicTerm) {
+        this.ethnicTerm = ethnicTerm;
     }
 
-    public String getShort_definitions() {
-        return Short_definitions;
+    public String getShortDefinition() {
+        return shortDefinition;
     }
 
-    public void setShort_definitions(String short_definitions) {
-        Short_definitions = short_definitions;
+    public void setShortDefinition(String shortDefinition) {
+        this.shortDefinition = shortDefinition;
     }
 
-    public String getLong_definitions() {
-        return Long_definitions;
+    public String getLongDefinition() {
+        return longDefinition;
     }
 
-    public void setLong_definitions(String long_definitions) {
-        Long_definitions = long_definitions;
+    public void setLongDefinition(String longDefinition) {
+        this.longDefinition = longDefinition;
     }
 
-    public String getTYPE() {
-        return TYPE;
+    public String getType() {
+        return type;
     }
 
-    public void setTYPE(String TYPE) {
-        this.TYPE = TYPE;
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -18,6 +18,6 @@ public class LookupController {
 
     @GetMapping("/lookup")
     public List<NamasteTerms> lookup(@RequestParam String query) {
-        return namasteRepository.findByNAMC_NAMEContainingIgnoreCase(query);
+        return namasteRepository.findByNamcNameContainingIgnoreCase(query);
     }
 }

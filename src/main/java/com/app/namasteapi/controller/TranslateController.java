@@ -23,13 +23,13 @@ public class TranslateController {
         NamasteTerms term = namasteRepository.findById(namasteCode)
                 .orElseThrow(() -> new RuntimeException("Not found: " + namasteCode));
 
-        String url = "https://id.who.int/icd/release/11/mms?fuzzyMatch=" + term.getNAMC_NAME();
+        String url = "https://id.who.int/icd/release/11/mms?fuzzyMatch=" + term.getNamcName();
         String icdJson = restTemplate.getForObject(url, String.class);
 
         return Map.of(
                 "resourceType", "Parameters",
                 "parameter", List.of(
-                        Map.of("name", "source", "valueString", term.getNAMC_NAME()),
+                        Map.of("name", "source", "valueString", term.getNamcName()),
                         Map.of("name", "target", "valueString", icdJson)
                 )
         );

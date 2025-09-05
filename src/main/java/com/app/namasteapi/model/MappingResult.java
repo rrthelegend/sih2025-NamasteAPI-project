@@ -16,12 +16,12 @@ public class MappingResult {
     public MappingResult() {}
 
     public MappingResult(NamasteTerms namaste, String icd11Id, String icd11Title, String icd11Definition) {
-        this.namasteCode = namaste.getNAMC_CODE();
-        this.namasteName = namaste.getNAMC_NAME();
-        this.ethnicTerm = namaste.getEthnic_term();
-        this.shortDefinition = namaste.getShort_definitions();
-        this.longDefinition = namaste.getLong_definitions();
-        this.type = namaste.getTYPE();
+        this.namasteCode = namaste.getNamcCode();
+        this.namasteName = namaste.getNamcName();
+        this.ethnicTerm = namaste.getEthnicTerm();
+        this.shortDefinition = namaste.getShortDefinition();
+        this.longDefinition = namaste.getLongDefinition();
+        this.type = namaste.getType();
         this.icd11Id = icd11Id;
         this.icd11Title = icd11Title;
         this.icd11Definition = icd11Definition;

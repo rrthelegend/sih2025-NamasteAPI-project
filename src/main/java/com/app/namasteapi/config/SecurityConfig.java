@@ -1,23 +1,34 @@
 package com.app.namasteapi.config;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
-import java.io.IOException;
+@Configuration
+public class SecurityConfig {
 
-@Component
-public class SecurityConfig extends OncePerRequestFilter {
-    @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException, IOException, ServletException {
-        String auth = req.getHeader("Authorization");
-        if (auth == null || !auth.equals("Bearer demo-token")) {
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
-            return;
-        }
-        chain.doFilter(req, res);
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        // Swagger endpoints public
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
+                        // Everything else requires login
+                        .anyRequest().authenticated()
+                )
+                // default login form
+                .formLogin(Customizer.withDefaults())
+                // also allow HTTP Basic (good for Postman testing)
+                .httpBasic(Customizer.withDefaults());
+
+        return http.build();
     }
 }

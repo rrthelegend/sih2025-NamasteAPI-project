@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -23,11 +25,12 @@ public class Icd11Service {
     private String clientSecret;
 
     private String cachedToken;
+    private long tokenExpiryTime = 0;
 
-    // 🔹 1. Get access token from WHO auth server
     private String getAccessToken() {
-        if (cachedToken != null) {
-            return cachedToken; // reuse until expiry (for demo)
+        long now = System.currentTimeMillis();
+        if (cachedToken != null && now < tokenExpiryTime) {
+            return cachedToken; // still valid
         }
 
         String tokenUrl = "https://icdaccessmanagement.who.int/connect/token";
@@ -35,26 +38,29 @@ public class Icd11Service {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        String body = "grant_type=client_credentials"
-                + "&client_id=" + clientId
-                + "&client_secret=" + clientSecret
-                + "&scope=icdapi_access";
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "client_credentials");
+        body.add("client_id", clientId);
+        body.add("client_secret", clientSecret);
+        body.add("scope", "icdapi_access");
 
-        HttpEntity<String> request = new HttpEntity<>(body, headers);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
 
         Map<String, Object> response = restTemplate.postForObject(tokenUrl, request, Map.class);
 
         if (response != null && response.containsKey("access_token")) {
             cachedToken = (String) response.get("access_token");
+            Integer expiresIn = (Integer) response.get("expires_in"); // usually 3600 sec
+            tokenExpiryTime = now + (expiresIn - 60) * 1000; // refresh 1 min early
             return cachedToken;
         } else {
             throw new RuntimeException("Failed to fetch ICD-11 access token");
         }
     }
 
-    // 🔹 2. Search ICD-11 entity by term
     public Icd11Terms searchTerm(String query) throws UnsupportedEncodingException {
-        String url = "https://icd.who.int/icd/api/v2/icd/entity/search?q=" + URLEncoder.encode(query, "UTF-8");
+        String url = "https://id.who.int/icd/api/v2/icd/entity/search?q="
+                + URLEncoder.encode(query, "UTF-8");
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + getAccessToken());
